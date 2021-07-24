@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @RestController
-@RequestMapping("/quote")
+@RequestMapping("/quotes")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Quote {
 
@@ -44,8 +44,8 @@ public class Quote {
         '}';
   }
 
-  @GetMapping("/msg") 
-  public String sendMsg() {
+  @GetMapping("/quote") 
+  public String getQuoteFromAPI() {
 	  RestTemplate  restTemplate = new RestTemplate();
 	  Quote theQuote = restTemplate.getForObject("https://quoters.apps.pcfone.io/api/random", Quote.class);
 	  //return theQuote.toString();
