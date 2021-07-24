@@ -1,7 +1,16 @@
 package com.example.consumingrest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
+
+@RestController
+@RequestMapping("/quote")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Quote {
 
@@ -34,4 +43,14 @@ public class Quote {
         ", value=" + value +
         '}';
   }
+
+  @GetMapping("/msg") 
+  public String sendMsg() {
+	  RestTemplate  restTemplate = new RestTemplate();
+	  Quote theQuote = restTemplate.getForObject("https://quoters.apps.pcfone.io/api/random", Quote.class);
+	  //return theQuote.toString();
+	  //return theQuote.getValue().toString();
+	  return theQuote.getValue().getQuote();
+  }
+
 }
